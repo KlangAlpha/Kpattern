@@ -82,7 +82,7 @@ def pattern_cup_handle():
         ab = close[a] - close[b]
         cb = close[c] - close[b]
         cd = close[c] - close[d]
-        if pivots[x1] == -1 and abs(ab-cb)/cb < 0.15 and \
+        if pivots[x1] == -1 and cb > 0 and abs(ab-cb)/cb < 0.15 and \
             close[b] < close[d] and \
             cb / 3 > cd: 
             ax.text(a+1,close[a],"<-A")
@@ -143,12 +143,34 @@ def pattern_triple_bottom():
             ax.text(f+1,close[d],"<-F")
             ret = 1
     return ret
- 
+# 上攻回调买入
+def pattern_dip():
+    if len(pv_index) < 3:
+        return 0 
+    ret = 0
+    close = loaded_data['close'].values
+    last_index = pv_index[-5:]
+    for i in range(0,len(last_index)-2):
+        a = last_index[i]
+        b = last_index[i+1]
+        c = last_index[i+2]
+        ba = close[b] - close[a]
+        bc = close[b] - close[c]
+        # a 为起涨点，b为高点，c为回调点,跌幅不能超过50%
+        if pivots[a] == -1 and ba / close[b] > 0.3 and bc / ba < 0.5:
+            ax.text(a+1,close[a],"<-A")
+            ax.text(b+1,close[b],"<-B")
+            ax.text(c+1,close[c],"<-C")
+            ret = 1
+
+    return ret 
+
 pivots = calc_data(loaded_data['close'].values)
 pv_index = create_index(pivots)
 
 #if pattern_triple_bottom() == 1:
-if pattern_cup_handle() == 1:
+#if pattern_cup_handle() == 1:
+if pattern_dip() == 1:
     plt.title( codename + "-" + Kl.cur_name + ' Prices - ZigZag trendline')
     plt.grid(True, linestyle='dashed')
     plt.savefig("images/" + codename + "_" + str(len(loaded_data['close'].values))+ "_zigzag.png",dpi=100,bbox_inches='tight')
