@@ -176,3 +176,46 @@ def pivots_to_modes(pivots):
         else:
             modes[t] = mode
     return modes
+
+
+def peak_valley_pivots_np(X,step=3):
+    pivots = np.zeros(len(X), dtype='i1')
+    if len(X) < 2:
+        return [0]
+
+    preindex = 0
+    # 获取第一个趋势
+    if X[0] < X[1]:
+        trend = -1
+    else:
+        trend = 1
+    
+    for i in range(0,len(X)):
+        l = i - step
+        r = i + step
+        if l < 0:
+            l = 0
+        x1 = X[l:r]
+        if trend == 1:
+
+            if X[i] == np.amin(x1):
+                trend = -1
+                pivots[preindex] = 1
+                preindex = i
+
+            if X[i] == np.amax(x1) and X[i] > X[preindex]:
+                preindex = i
+        else:
+            if X[i] == np.amax(x1):
+                trend = 1
+                pivots[preindex] = -1
+                preindex = i
+            if X[i] == np.amin(x1) and X[i] < X[preindex]:
+                preindex = i
+    # 补充最后一个
+    if trend == 1:
+        pivots[preindex] = 1
+    else:
+        pivots[preindex] = -1
+
+    return pivots

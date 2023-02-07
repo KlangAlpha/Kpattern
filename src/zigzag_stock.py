@@ -1,5 +1,5 @@
 import pandas as pd
-from zigzag_lib import peak_valley_pivots, max_drawdown, compute_segment_returns, pivots_to_modes
+from zigzag_lib import peak_valley_pivots_np, max_drawdown, compute_segment_returns, pivots_to_modes
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
@@ -54,7 +54,8 @@ def create_index(pivots):
     return index_list
 
 def calc_data(data_x):
-    pivots = peak_valley_pivots(data_x, 0.02, -0.02)
+    #pivots = peak_valley_pivots(data_x, 0.02, -0.02)
+    pivots = peak_valley_pivots_np(data_x,step=3)
     plot_pivots(data_x,pivots)    
     return pivots
 
@@ -146,7 +147,8 @@ def pattern_triple_bottom():
 pivots = calc_data(loaded_data['close'].values)
 pv_index = create_index(pivots)
 
-if pattern_triple_bottom() == 1:
+#if pattern_triple_bottom() == 1:
+if pattern_cup_handle() == 1:
     plt.title( codename + "-" + Kl.cur_name + ' Prices - ZigZag trendline')
     plt.grid(True, linestyle='dashed')
     plt.savefig("images/" + codename + "_" + str(len(loaded_data['close'].values))+ "_zigzag.png",dpi=100,bbox_inches='tight')
