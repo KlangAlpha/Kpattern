@@ -25,9 +25,13 @@ display = 1
 if len(sys.argv)>2:
     display = int(sys.argv[2])
 
-offset = 100
+func_name = "default"
 if len(sys.argv)>3:
-    offset = int(sys.argv[3])
+    func_name = sys.argv[3]
+
+offset = 100
+if len(sys.argv)>4:
+    offset = int(sys.argv[4])
 
 Kl.code(codename)
 print(codename,Kl.cur_name)
@@ -168,9 +172,13 @@ def pattern_dip():
 pivots = calc_data(loaded_data['close'].values)
 pv_index = create_index(pivots)
 
-#if pattern_triple_bottom() == 1:
-#if pattern_cup_handle() == 1:
-if pattern_dip() == 1:
+func_list= {"cup_handle":pattern_cup_handle,
+            "w_bottom":pattern_w_bottom,
+            "triple":pattern_triple_bottom,
+            "dip":pattern_dip}
+
+func = func_list.get(func_name,lambda:1)
+if func() == 1:
     plt.title( codename + "-" + Kl.cur_name + ' Prices - ZigZag trendline')
     plt.grid(True, linestyle='dashed')
     plt.savefig("images/" + codename + "_" + str(len(loaded_data['close'].values))+ "_zigzag.png",dpi=100,bbox_inches='tight')

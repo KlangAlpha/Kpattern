@@ -1,6 +1,6 @@
 import os,sys
 
-filename = "zigzag_plt.py"
+filename = "zigzag_stock.py"
 
 if len(sys.argv) > 1:
     filename = sys.argv[1]
@@ -12,7 +12,7 @@ Klang.Klang_init()
 from threading import Thread
 
 def th_task(code):
-    os.system('python3  ' + filename + " " + code + " 0")
+    os.system('python3  ' + filename + " " + code + " 0 " + " " + "cup_handle" + " 100" )
 
 def do_task(tasklist):
     for stock in tasklist:
