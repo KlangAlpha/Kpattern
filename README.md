@@ -1,6 +1,11 @@
 # Kpattern
 基于Klang扩展的 股票模式识别项目
 
+(Detecting Technical Patterns),通过技术指标的探测，获取常见的股票模式，进行模式识别。
+
+和其他zigzag不同的时，这里采用了自动探索拐点，找到更和时的peak和valley。
+改进了原有 库的算法。波峰和波谷的探测更合理。
+
 # 安装Klang
 ```
 git clone https://github.com/KlangAlpha/Klang
