@@ -58,7 +58,6 @@ def create_index(pivots):
     return index_list
 
 def calc_data(data_x):
-    #pivots = peak_valley_pivots(data_x, 0.02, -0.02)
     pivots = peak_valley_pivots_np(data_x,step=3)
     plot_pivots(data_x,pivots)    
     return pivots
@@ -179,6 +178,7 @@ func_list= {"cup_handle":pattern_cup_handle,
 
 func = func_list.get(func_name,lambda:1)
 if func() == 1:
+    plt.xticks(np.arange(0,len(loaded_data['datetime'].values),step=5), loaded_data['datetime'].values[::5],rotation=20)
     plt.title( codename + "-" + Kl.cur_name + ' Prices - ZigZag trendline')
     plt.grid(True, linestyle='dashed')
     plt.savefig("images/" + codename + "_" + str(len(loaded_data['close'].values))+ "_zigzag.png",dpi=100,bbox_inches='tight')
