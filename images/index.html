@@ -10,7 +10,7 @@
    </head>
     <body onload="loaddata()">
         <div id="app" style="margin:20px;">
-           <h4>{{images[currentindex]}}</h4>
+           <h4 v-html="stockcode"></h4>
            <img v-bind:src="images[currentindex]"/>
            <nav aria-label="Page navigation example" style="margin:40px;">
              <ul class="pagination">
@@ -35,6 +35,27 @@
                 vue.$data.images = mydata;
             }
 
+            function getUrlString(match, code) {
+
+                if (code === "") {
+
+                    return match;
+                }
+                code1 = code.replace(".","")
+                return "<a  href=https://klang.org.cn/kline.html?code=" + code1 +" target=_blank>"+code+"</a>";
+            }
+
+            function replaceContent(data) {
+
+                codeRegex = /((sh|sz|sh.|sz.)[0-9]{6})/g;
+
+                var newData = data;
+
+                newData = newData.replace(codeRegex, getUrlString);
+
+                return newData;
+            }
+
 
        
       const VueApp = {
@@ -50,6 +71,16 @@
         },
 
         mounted () {
+        },
+        computed:{
+            stockcode(){
+                if (this.images.length > 0){
+                    return replaceContent(this.images[this.currentindex]);
+                } else {
+                    return ""
+                }
+                
+            }
         },
         methods: {
             prev:function(){
@@ -67,6 +98,7 @@
         }
       }//VueApp
       window.vue = Vue.createApp(VueApp).mount('#app')
+
         </script>
  
 
