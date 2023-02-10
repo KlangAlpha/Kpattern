@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+    <head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+
+ <link href="https://klang.org.cn/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+     <!-- font awesome CSS -->
+<link crossorigin="anonymous" href="https://lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+   <title>Klang 模式识别</title>
+   </head>
+    <body onload="loaddata()">
+        <div id="app" style="margin:20px;">
+           <h4>{{images[currentindex]}}</h4>
+           <img v-bind:src="images[currentindex]"/>
+           <nav aria-label="Page navigation example" style="margin:40px;">
+             <ul class="pagination">
+                <li class="page-item"><a class="page-link" @click="prev()">Previous</a></li>
+                <li class="page-item"><a class="page-link" @click="next()">Next</a></li>
+            </ul>
+           </nav> 
+        </div>
+    </body>
+
+<script crossorigin="anonymous" integrity="sha512-KvaXQuRkPKYVQnd5RtRnFPR51W3+Vz+uq0IX8/TYaA2F6hDS2VQQv11BjdHES9boHiHXmqT9oC4H3AJLbq2Szg==" src="https://lib.baomitu.com/vue/3.2.31/vue.global.js"></script>
+<script crossorigin="anonymous" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" src="https://lib.baomitu.com/jquery/3.6.0/jquery.js"></script>
+  <script crossorigin="anonymous" integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A==" src="https://lib.baomitu.com/axios/0.27.2/axios.min.js"></script>
+
+    <!-- Template Main JS File -->
+    <script type="text/javascript" src="https://klang.org.cn/js/klinecharts-8.6.2.js"></script>
+    <script type="text/javascript" src="https://klang.org.cn/js/vendors.min.js"></script>
+        <script type="text/javascript" src="data.json"></script>
+        <script type="text/javascript" >
+            function loaddata() {
+                var mydata = JSON.parse(data);
+                vue.$data.images = mydata;
+            }
+
+
+       
+      const VueApp = {
+        data() {
+            return {
+                images:[],
+                currentindex:0,
+            }
+        },
+    
+        created() {
+            
+        },
+
+        mounted () {
+        },
+        methods: {
+            prev:function(){
+                this.currentindex -= 1;
+                if (this.currentindex < 0){
+                    this.currentindex = 0;
+                }
+            },
+            next:function(){
+                this.currentindex += 1;
+                if (this.currentindex > this.images.length){
+                    this.currentindex = this.images.length;
+                }
+            },
+        }
+      }//VueApp
+      window.vue = Vue.createApp(VueApp).mount('#app')
+        </script>
+ 
+
+</html>
+

@@ -12,7 +12,7 @@ Klang.Klang_init()
 from threading import Thread
 
 def th_task(code):
-    os.system('python3  ' + filename + " " + code + " 0 " + " " + "dip" + " 100" )
+    os.system('python3  ' + filename + " " + code + " 0 " + " " + "default" + " 100" )
 
 def do_task(tasklist):
     for stock in tasklist:
@@ -26,8 +26,16 @@ for index in range(0,len(Kl.stocklist),count):
 
 # 生成结果列表
 for _,_ ,filelist in os.walk('./images'):
-    f = open("./images/stock.txt","w+")
-    for afile in filelist:
+    filelist.sort()
+    f = open("./images/data.json","w+")
+    f.write("data='[")
+    pnglist = []
+    for afile in filelist[:]:
         if ".png" in afile:
-            f.write(afile.split("_")[0]+"\n")
+            pnglist.append(afile)
+    for png in pnglist[:-1]:
+        f.write('"'+png+'",')
+    
+    f.write('"'+pnglist[-1]+'"')
+    f.write("]';")
     f.close()
