@@ -33,8 +33,29 @@
             function loaddata() {
                 var mydata = JSON.parse(data);
                 vue.$data.images = mydata;
+
+                if (getUrlParam("code") != null) {
+                    code = getUrlParam("code")
+                    code = code.replace(".","")
+                    for (var i = 0 ;i<mydata.length;i++){
+                        if (mydata[i].replace(".","").indexOf(code) != -1){
+                            vue.$data.currentindex = i
+                            break;
+                        }
+                    }
+                }
             }
 
+            function getUrlParam(name){
+
+                var reg=new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                var r= window.location.search.substr(1).match(reg);
+
+                if(r != null) {
+                    return unescape(r[2]);
+                }
+                return null;
+            }
             function getUrlString(match, code) {
 
                 if (code === "") {
