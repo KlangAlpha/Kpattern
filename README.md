@@ -42,3 +42,17 @@ src/zigzag_stock.py
 pattern_w_bottom()
 ```
 ![image](https://forum.klang.org.cn/assets/uploads/files/1675905248984-sh.600.719_105_zigzag.png)
+
+
+
+### 增加Javascript 版本的算法
+```
+  zigzag = require('./src/zigzag')
+  zigzag.peak_valley_pivots([1,2,3,4,5,1,3,4,2,3,1,2,3])
+  [
+   -1, 0, 0, 0,  1, -1,
+    0, 1, 0, 0, -1,  0,
+    1
+  ]
+```
+
