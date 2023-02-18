@@ -195,6 +195,9 @@ def peak_valley_pivots_np(X,step=3):
         r = i + step
         if l < 0:
             l = 0
+        if l < preindex:
+            l = preindex
+
         x1 = X[l:r]
         if trend == 1:
 
