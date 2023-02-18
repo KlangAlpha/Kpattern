@@ -42,3 +42,14 @@ src/zigzag_stock.py
 pattern_w_bottom()
 ```
 ![image](https://forum.klang.org.cn/assets/uploads/files/1675905248984-sh.600.719_105_zigzag.png)
+
+## v-shaped
+chatgpt: v-shaped trends in the stock market can be profitable
+
+add v-shaped pattern recognition
+```python
+# V-shaped trends 回调买入
+def pattern_V():
+   ....
+
+```

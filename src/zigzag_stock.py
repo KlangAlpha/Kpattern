@@ -146,8 +146,8 @@ def pattern_triple_bottom():
             ax.text(f+1,close[d],"<-F")
             ret = 1
     return ret
-# 上攻回调买入
-def pattern_dip():
+# V-shape trend 回调买入
+def pattern_V():
     if len(pv_index) < 3:
         return 0 
     ret = 0
@@ -174,7 +174,7 @@ pv_index = create_index(pivots)
 func_list= {"cup_handle":pattern_cup_handle,
             "w_bottom":pattern_w_bottom,
             "triple":pattern_triple_bottom,
-            "dip":pattern_dip}
+            "V":pattern_V}
 
 func = func_list.get(func_name,lambda:1)
 if func() == 1:
